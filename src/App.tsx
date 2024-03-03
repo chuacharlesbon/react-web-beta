@@ -1,25 +1,22 @@
-import React from 'react';
-import logo from './logo.svg';
-import './App.css';
+import { FC } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import Home from './pages/Home/home';
+import { NotFound } from './NotFound';
+import { selectMyApp } from './redux/selectors/myappSelectors';
+import { useSelector } from 'react-redux';
+import NewPage from './pages/NewPage/newPage';
+import { Div } from './components/core/Container';
 
-function App() {
+const App: FC<any> = () => {
+  const myAppData = useSelector(selectMyApp);
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.tsx</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Div className="min-h-screen">
+      <Routes>
+        <Route path="/" element={<Home myData={myAppData} />} />
+        <Route path="/new-page" element={<NewPage myData={myAppData} />} />
+        <Route path="*" element={<NotFound />} />
+      </Routes>
+    </Div>
   );
 }
 
